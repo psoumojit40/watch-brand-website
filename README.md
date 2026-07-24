@@ -60,9 +60,9 @@ DATABASE_URL="postgresql://user:password@localhost:5432/watch_brand?schema=publi
 UPSTASH_REDIS_URL="[https://your-region.upstash.io](https://your-region.upstash.io)"
 UPSTASH_REDIS_TOKEN="your-token"
 
-npx prisma db push
-npx prisma generate
-npm run seed
+*  npx prisma db push
+*  npx prisma generate
+*  npm run seed
 
-npm run dev
+*  npm run dev
 
