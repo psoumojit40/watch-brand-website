@@ -42,15 +42,26 @@ export async function POST(req: Request) {
     const cleanPass = pass.replace(/\s+/g, "");
 
     // 3. Create Nodemailer Transporter
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure: port === 465, // true for 465, false for 587 or other ports
-      auth: {
-        user,
-        pass: cleanPass,
-      },
-    });
+    const isGmail = host.includes("gmail");
+    const transporter = nodemailer.createTransport(
+      isGmail
+        ? {
+            service: "gmail",
+            auth: {
+              user,
+              pass: cleanPass,
+            },
+          }
+        : {
+            host,
+            port,
+            secure: port === 465,
+            auth: {
+              user,
+              pass: cleanPass,
+            },
+          }
+    );
 
     // 4. HTML Email Template
     const htmlContent = `
