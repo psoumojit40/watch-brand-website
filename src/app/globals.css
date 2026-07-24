@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-black: #0a0a0a;
+  --color-darkNavy: #1a1a2e;
+  --color-gold: #c9a96e;
+  --color-olive: #4a7c59;
+  --color-cream: #f5f0e8;
+  --color-darkGray: #1e1e1e;
+  --color-mediumGray: #2a2a2a;
+  --color-lightGray: #3a3a3a;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9a96e #0a0a0a;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f5f0e8;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.3);
+  color: #f5f0e8;
+}
+
+/* Dark native form controls so <select> dropdown options are readable */
+html {
+  color-scheme: dark;
+}
+
+select,
+option {
+  background-color: #0a0a0a;
+  color: #f5f0e8;
+}
+
+/* ─── Premium tonal layering ─────────────────────────────────────────────── */
+
+/* Soft warm radial glow behind a section (very low opacity, centered-top) */
+.section-glow {
+  position: relative;
+  isolation: isolate;
+}
+.section-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 15%,
+    rgba(201, 169, 110, 0.07),
+    transparent 70%
+  );
+}
+
+/* Subtle deep-navy tonal gradient for alternating sections */
+.section-navy {
+  background:
+    linear-gradient(180deg, #0d0d16 0%, #0a0a0f 55%, #0a0a0a 100%);
+}
+
+/* Deep near-black with a faint edge vignette so edges fall off darker */
+.section-vignette {
+  position: relative;
+  isolation: isolate;
+}
+.section-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* Gradient hairline divider: transparent → gold → transparent */
+.divider-gold {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 169, 110, 0.25),
+    transparent
+  );
+}
+
+

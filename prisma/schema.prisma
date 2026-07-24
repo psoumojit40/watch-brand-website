@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  collection      String
+  price           Float
+  currency        String   @default("CHF")
+  description     String
+  shortDescription String
+  images          String[]
+  movement        String
+  caseMaterial    String   @map("case_material")
+  caseDiameter    String   @map("case_diameter")
+  waterResistance String   @map("water_resistance")
+  powerReserve    String   @map("power_reserve")
+  features        String[]
+  isNew           Boolean  @default(false)
+  isLimited       Boolean  @default(false)
+  limitedEdition  Int?
+  specifications  Specification[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Specification {
+  id       String @id @default(cuid())
+  label    String
+  value    String
+  productId String
+  product  Product @relation(fields: [productId], references: [id])
+
+  @@map("specifications")
+}
+
+model Collection {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  tagline         String
+  description     String
+  heroImage       String   @default("")
+  backgroundColor String   @default("#0a0a0a")
+  accentColor     String   @default("#c9a96e")
+  yearIntroduced  Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("collections")
+}
+
+model TimelineEvent {
+  id          String @id @default(cuid())
+  year        Int
+  title       String
+  description String
+  image       String?
+  category    String
+  createdAt   DateTime @default(now())
+
+  @@map("timeline_events")
+}
