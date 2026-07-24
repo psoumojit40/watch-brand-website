@@ -51,69 +51,120 @@ export function Navbar() {
     ? HOME_SECTIONS.find((s) => s.id === activeSection)?.href
     : undefined;
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-        <Link href="/" className="text-lg font-bold tracking-widest text-cream uppercase">
-          {BRAND.name.split(" ")[0]}
-          <span className="text-gold">.</span>
-        </Link>
+    <>
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-colors duration-200",
+          !isMobileMenuOpen && "mix-blend-difference"
+        )}
+      >
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+          <Link href="/" className="text-lg font-bold tracking-widest text-cream uppercase">
+            {BRAND.name.split(" ")[0]}
+            <span className="text-gold">.</span>
+          </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
-          {HOME_SECTIONS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "relative px-3 py-1.5 text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-200",
-                activeHref === link.href
-                  ? "text-black"
-                  : "text-cream/70 hover:text-cream"
-              )}
-            >
-              {activeHref === link.href && (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 rounded-sm bg-gold"
-                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                />
-              )}
-              <span className="relative z-10">{link.label}</span>
-            </Link>
-          ))}
-        </div>
+          <div className="hidden items-center gap-1 md:flex">
+            {HOME_SECTIONS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "relative px-3 py-1.5 text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-200",
+                  activeHref === link.href
+                    ? "text-black"
+                    : "text-cream/70 hover:text-cream"
+                )}
+              >
+                {activeHref === link.href && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-sm bg-gold"
+                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                  />
+                )}
+                <span className="relative z-10">{link.label}</span>
+              </Link>
+            ))}
+          </div>
 
-        <button
-          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-          className="relative z-50 text-cream md:hidden"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </nav>
+          <button
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+            className="relative z-50 p-2 text-cream hover:text-gold transition-colors md:hidden focus:outline-none"
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </nav>
+      </header>
 
+      {/* Mobile Navigation Fullscreen Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 flex items-center justify-center bg-black/95 backdrop-blur-xl"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-black/98 px-6 pt-24 pb-12 backdrop-blur-2xl md:hidden"
+            style={{ isolation: "isolate" }}
           >
-            <div className="flex flex-col items-center gap-8">
-              {HOME_SECTIONS.map((link) => (
-                <Link
+            {/* Ambient Gold Background Glow */}
+            <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-gold/10 blur-[100px]" />
+
+            <div className="relative z-10 flex flex-col items-center justify-center space-y-6 my-auto">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-gold/60 font-medium">
+                Navigation
+              </span>
+
+              {HOME_SECTIONS.map((link, idx) => (
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-light tracking-widest text-cream/80 uppercase transition-colors hover:text-gold"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 + 0.1 }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="group flex flex-col items-center text-center"
+                  >
+                    <span className="text-2xl sm:text-3xl font-light tracking-[0.2em] uppercase text-cream transition-colors group-hover:text-gold">
+                      {link.label}
+                    </span>
+                    <span className="mt-1 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-8" />
+                  </Link>
+                </motion.div>
               ))}
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center gap-4 text-center border-t border-white/10 pt-6">
+              <Link
+                href={ROUTES.collections}
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full max-w-xs rounded-sm border border-gold/40 bg-gold/10 py-3 text-xs font-medium tracking-[0.2em] uppercase text-gold transition-all hover:bg-gold hover:text-black"
+              >
+                Explore Timepieces
+              </Link>
+              <p className="text-[10px] tracking-widest uppercase text-cream/40">
+                {BRAND.tagline}
+              </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

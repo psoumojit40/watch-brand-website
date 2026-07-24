@@ -33,8 +33,8 @@ export function ProductMediaViewer({ product, className }: ProductMediaViewerPro
 
   return (
     <div className={`space-y-4 ${className || ""}`}>
-      {/* Studio Header */}
-      <div className="flex items-center justify-end px-2">
+      {/* Studio Header (Desktop Only) */}
+      <div className="hidden md:flex items-center justify-end px-2">
         <span className="flex items-center gap-1.5 text-[10px] tracking-widest uppercase text-cream/40">
           <ZoomIn size={12} className="text-gold/80" />
           Move mouse to magnify
@@ -42,7 +42,7 @@ export function ProductMediaViewer({ product, className }: ProductMediaViewerPro
       </div>
 
       {/* Main Display Container */}
-      <div className="group relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-gradient-to-b from-neutral-900 via-neutral-950 to-black p-8 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-gold/40">
+      <div className="group relative aspect-square overflow-hidden rounded-lg border border-white/10 bg-gradient-to-b from-neutral-900 via-neutral-950 to-black p-4 sm:p-8 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-gold/40">
         {/* Ambient Gold Radial Glow */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-72 w-72 rounded-full bg-gold/15 blur-3xl transition-all duration-700 group-hover:bg-gold/25 group-hover:scale-110" />
@@ -79,10 +79,11 @@ export function ProductMediaViewer({ product, className }: ProductMediaViewerPro
           )}
         </div>
 
-        {/* Hover Hint Overlay */}
+        {/* Hover Hint Overlay (Desktop Only) */}
         <div
-          className={`pointer-events-none absolute bottom-4 right-4 rounded-full border border-white/10 bg-black/70 px-3 py-1 text-[9px] font-medium tracking-widest uppercase backdrop-blur-md transition-all duration-300 ${isHovered ? "border-gold/40 text-gold shadow-md shadow-gold/20 opacity-100" : "text-cream/40 opacity-70"
-            }`}
+          className={`pointer-events-none hidden md:block absolute bottom-4 right-4 rounded-full border border-white/10 bg-black/70 px-3 py-1 text-[9px] font-medium tracking-widest uppercase backdrop-blur-md transition-all duration-300 ${
+            isHovered ? "border-gold/40 text-gold shadow-md shadow-gold/20 opacity-100" : "text-cream/40 opacity-70"
+          }`}
         >
           {isHovered ? "1.6x Magnified View" : "Hover to Inspect"}
         </div>

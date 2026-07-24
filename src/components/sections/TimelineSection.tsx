@@ -34,41 +34,55 @@ export function TimelineSection() {
         />
 
         <div className="relative">
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gold/20 md:left-1/2 md:-translate-x-px" />
+          {/* Vertical background line */}
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-gold/20 md:left-1/2 md:-translate-x-px" />
 
+          {/* Animated scroll progress line */}
           <motion.div
-            className="absolute left-[19px] top-0 w-px bg-gold md:left-1/2 md:-translate-x-px"
+            className="absolute left-4 top-0 w-px bg-gold md:left-1/2 md:-translate-x-px"
             style={{
               height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
             }}
           />
 
-          <div className="space-y-16">
+          <div className="space-y-12 md:space-y-16">
             {milestones.map((event, i) => (
               <FadeInSection
                 key={event.year}
                 direction={i % 2 === 0 ? "left" : "right"}
                 delay={i * 0.15}
               >
+                {/* Mobile: Left-aligned with dot over left line. Desktop: Alternating left/right */}
                 <div
-                  className={`relative flex items-start gap-6 ${
+                  className={`relative flex flex-col pl-12 md:pl-0 md:flex-row md:items-start md:gap-6 ${
                     i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
-                  <div className={`flex-1 ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                    <span className="text-5xl font-light text-gold/30">{event.year}</span>
-                    <h3 className="mt-2 text-xl font-light text-cream">{event.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-cream/50">
+                  {/* Text Content */}
+                  <div
+                    className={`flex-1 ${
+                      i % 2 === 0 ? "md:text-right" : "md:text-left"
+                    }`}
+                  >
+                    <span className="text-4xl sm:text-5xl font-light text-gold/30">
+                      {event.year}
+                    </span>
+                    <h3 className="mt-1 sm:mt-2 text-lg sm:text-xl font-light text-cream">
+                      {event.title}
+                    </h3>
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-cream/50">
                       {event.description}
                     </p>
                   </div>
 
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-black">
+                  {/* Milestone Dot Marker */}
+                  <div className="absolute left-0 top-1 z-10 md:relative md:left-auto md:top-auto md:flex-shrink-0">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/40 bg-black shadow-[0_0_15px_rgba(201,169,110,0.3)] md:h-10 md:w-10">
                       <div className="h-2 w-2 rounded-full bg-gold" />
                     </div>
                   </div>
 
+                  {/* Desktop Spacer for Alternating Balance */}
                   <div className="hidden flex-1 md:block" />
                 </div>
               </FadeInSection>

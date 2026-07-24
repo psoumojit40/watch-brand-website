@@ -46,7 +46,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="mb-8 text-6xl font-light tracking-tight text-cream md:text-7xl lg:text-8xl"
+            className="mb-6 sm:mb-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-cream"
           >
             {BRAND.name.split(" ")[0]}
             <span className="text-gold">.</span>
@@ -56,7 +56,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mx-auto mb-12 max-w-xl text-base leading-relaxed text-cream/60 lg:mx-0"
+            className="mx-auto mb-8 sm:mb-12 max-w-xl text-sm sm:text-base leading-relaxed text-cream/60 lg:mx-0"
           >
             {BRAND.description}
           </motion.p>
@@ -65,19 +65,18 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex items-center justify-center gap-4 lg:justify-start"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 lg:justify-start"
           >
-            <Link href={ROUTES.collections}>
-              <Button variant="primary" size="lg">
+            <Link href={ROUTES.collections} className="w-full sm:w-auto">
+              <Button variant="primary" size="lg" className="w-full sm:w-auto">
                 Discover Collections
               </Button>
             </Link>
-            <Link href={ROUTES.heritage}>
-              <Button variant="outline" size="lg">
+            <Link href={ROUTES.heritage} className="w-full sm:w-auto">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto">
                 Our Heritage
               </Button>
             </Link>
-
           </motion.div>
         </div>
 
