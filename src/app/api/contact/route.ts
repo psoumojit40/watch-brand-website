@@ -39,6 +39,8 @@ export async function POST(req: Request) {
       );
     }
 
+    const cleanPass = pass.replace(/\s+/g, "");
+
     // 3. Create Nodemailer Transporter
     const transporter = nodemailer.createTransport({
       host,
@@ -46,7 +48,7 @@ export async function POST(req: Request) {
       secure: port === 465, // true for 465, false for 587 or other ports
       auth: {
         user,
-        pass,
+        pass: cleanPass,
       },
     });
 
