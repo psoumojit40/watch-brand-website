@@ -8,16 +8,11 @@ export const products: Product[] = [
     slug: "royal-oak-jumbo",
     price: 3657500,
     currency: "INR",
-
     description:
       "The Royal Oak Jumbo Extra-Thin in platinum. A masterpiece of ultra-thin watchmaking, housing the ultra-thin Calibre 7121 movement. The 39mm case with the iconic 'Tapisserie' dial pattern defines timeless elegance.",
     shortDescription:
       "Ultra-thin platinum icon with Calibre 7121 movement and signature Tapisserie dial.",
-    images: [
-      "/images/products/ro-jumbo-1.jpg",
-      "/images/products/ro-jumbo-2.jpg",
-      "/images/products/ro-jumbo-3.jpg",
-    ],
+    images: ["/images/products/royal-oak-jumbo.png"],
     specifications: [
       { label: "Reference", value: "16202PT.OO.1240PT.01" },
       { label: "Case", value: "Platinum, 39mm" },
@@ -40,15 +35,11 @@ export const products: Product[] = [
     slug: "royal-oak-chronograph",
     price: 2802500,
     currency: "INR",
-
     description:
       "The Royal Oak Chronograph in stainless steel combines the iconic octagonal design with a high-performance column-wheel chronograph movement. A sporty yet refined companion for everyday elegance.",
     shortDescription:
       "Stainless steel chronograph with column-wheel Calibre 4401 movement.",
-    images: [
-      "/images/products/ro-chrono-1.jpg",
-      "/images/products/ro-chrono-2.jpg",
-    ],
+    images: ["/images/products/royal-oak-chronograph.png"],
     specifications: [
       { label: "Reference", value: "26240ST.OO.1320ST.01" },
       { label: "Case", value: "Stainless Steel, 41mm" },
@@ -71,15 +62,11 @@ export const products: Product[] = [
     slug: "royal-oak-perpetual",
     price: 8502500,
     currency: "INR",
-
     description:
       "The Royal Oak Perpetual Calendar in white gold. A grand complication that displays day, date, month, moon phase, and leap year in perfect harmony. A testament to Audemars Piguet's mastery of complications.",
     shortDescription:
       "White gold grand complication with perpetual calendar and moon phase.",
-    images: [
-      "/images/products/ro-perpetual-1.jpg",
-      "/images/products/ro-perpetual-2.jpg",
-    ],
+    images: ["/images/products/royal-oak-jumbo.png"],
     specifications: [
       { label: "Reference", value: "26574WG.OO.1220WG.01" },
       { label: "Case", value: "White Gold, 41mm" },
@@ -103,15 +90,11 @@ export const products: Product[] = [
     slug: "offshore-diver",
     price: 2327500,
     currency: "INR",
-
     description:
       "The Royal Oak Offshore Diver in stainless steel. A robust diving instrument with internal rotating bezel, 300m water resistance, and the unmistakable Offshore attitude. Adventure-ready luxury.",
     shortDescription:
       "Professional diver with 300m water resistance, internal bezel, and Offshore DNA.",
-    images: [
-      "/images/products/offshore-diver-1.jpg",
-      "/images/products/offshore-diver-2.jpg",
-    ],
+    images: ["/images/products/offshore-diver.png"],
     specifications: [
       { label: "Reference", value: "15707ST.OO.A077CA.01" },
       { label: "Case", value: "Stainless Steel, 42mm" },
@@ -134,15 +117,11 @@ export const products: Product[] = [
     slug: "offshore-chrono",
     price: 3087500,
     currency: "INR",
-
     description:
       "The Royal Oak Offshore Chronograph in forged carbon. Ultra-lightweight, incredibly bold, and unmistakably modern. The fusion of high-tech materials with traditional watchmaking creates a true contemporary icon.",
     shortDescription:
       "Forged carbon chronograph — the boldest expression of Offshore design.",
-    images: [
-      "/images/products/offshore-chrono-1.jpg",
-      "/images/products/offshore-chrono-2.jpg",
-    ],
+    images: ["/images/products/royal-oak-chronograph.png"],
     specifications: [
       { label: "Reference", value: "26221CE.OO.A002CA.01" },
       { label: "Case", value: "Forged Carbon, 44mm" },
@@ -165,15 +144,11 @@ export const products: Product[] = [
     slug: "code-1159-selfwinding",
     price: 2707500,
     currency: "INR",
-
     description:
       "The Code 11.59 Selfwinding in 18k pink gold. A revolutionary case architecture with a double-curved sapphire crystal and openworked dial reveals the intricate Calibre 4302 movement. Modern elegance redefined.",
     shortDescription:
       "Pink gold selfwinding with double-curved crystal and openworked dial.",
-    images: [
-      "/images/products/code-1159-1.jpg",
-      "/images/products/code-1159-2.jpg",
-    ],
+    images: ["/images/products/code-1159.png"],
     specifications: [
       { label: "Reference", value: "15210OR.OO.A348CR.01" },
       { label: "Case", value: "Pink Gold 18k, 41mm" },
@@ -196,15 +171,11 @@ export const products: Product[] = [
     slug: "code-1159-skeleton",
     price: 6507500,
     currency: "INR",
-
     description:
       "The Code 11.59 Skeleton in platinum. A breathtaking display of architectural skeletonization. The Calibre 4303 movement is meticulously hollowed and decorated, revealing every gear, spring, and bridge through the sapphire crystal.",
     shortDescription:
       "Platinum skeleton with fully openworked Calibre 4303 movement.",
-    images: [
-      "/images/products/code-1159-skeleton-1.jpg",
-      "/images/products/code-1159-skeleton-2.jpg",
-    ],
+    images: ["/images/products/code-1159.png"],
     specifications: [
       { label: "Reference", value: "15210PT.OO.1240PT.01" },
       { label: "Case", value: "Platinum 950, 41mm" },

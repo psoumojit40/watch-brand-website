@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FadeInSection } from "@/components/animations/FadeInSection";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -37,22 +38,31 @@ export default async function CollectionDetailPage({ params }: Props) {
 
   return (
     <div className="pt-24">
-      <section
-        className="relative py-24"
-        style={{ background: collection.backgroundColor }}
-      >
-        <div className="mx-auto max-w-7xl px-6 text-center">
+      <section className="relative overflow-hidden py-32 bg-black">
+        {collection.heroImage && (
+          <Image
+            src={collection.heroImage}
+            alt={collection.name}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-25"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
+        
+        <div className="relative mx-auto max-w-7xl px-6 text-center">
           <FadeInSection>
             <p className="mb-4 text-xs font-medium tracking-[0.3em] uppercase text-gold">
               Since {collection.yearIntroduced}
             </p>
-            <h1 className="mb-4 text-5xl font-light text-cream md:text-7xl">
+            <h1 className="mb-6 text-5xl font-light text-cream md:text-7xl">
               {collection.name}
             </h1>
-            <p className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-cream/60">
+            <p className="mx-auto mb-6 max-w-2xl text-base leading-relaxed text-cream/70">
               {collection.description}
             </p>
-            <p className="text-sm italic text-gold/60">&ldquo;{collection.tagline}&rdquo;</p>
+            <p className="text-sm italic text-gold/80">&ldquo;{collection.tagline}&rdquo;</p>
           </FadeInSection>
         </div>
       </section>
