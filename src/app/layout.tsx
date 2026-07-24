@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Audemars Piguet | Master of Complications Since 1875",
   description:
     "Swiss luxury watch manufacturer founded in 1875 in Le Brassus, Switzerland. Renowned for crafting some of the world's most exquisite timepieces, including the iconic Royal Oak.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
