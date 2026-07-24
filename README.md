@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⌚ Premium Watch Brand Experience
 
-## Getting Started
+A full-stack, immersive e-commerce and showcase platform built with Next.js. This project delivers a high-end user experience featuring interactive 3D models, smooth animations, and a highly responsive design.
 
-First, run the development server:
+---
 
+## ✨ Features
+
+*   **3D Product Showcases:** Interactive, fully rotatable 3D watch models.
+*   **Curated Collections:** Dynamic product filtering and browsing.
+*   **Interactive Timeline:** A visual history of the brand's legacy.
+*   **Fluid Animations:** Seamless page transitions and micro-interactions.
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend & Styling**
+*   Next.js (App Router)
+*   React
+*   Tailwind CSS
+*   Three.js / React Three Fiber (3D rendering)
+*   Framer Motion (Animations)
+
+**Backend & Database**
+*   Node.js
+*   Prisma ORM
+*   PostgreSQL
+*   Upstash (Redis caching)
+
+---
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+*   Node.js (v18 or higher)
+*   npm (v9 or higher)
+*   PostgreSQL (Local instance or a cloud provider)
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally.
+
+**1. Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/psoumojit40/watch-brand-website.git](https://github.com/psoumojit40/watch-brand-website.git)
+cd watch-brand-showcase
+```
+**2. Install dependencies**
+```bash
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# PostgreSQL Database URL
+DATABASE_URL="postgresql://user:password@localhost:5432/watch_brand?schema=public"
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Upstash Redis (Optional for caching)
+*  UPSTASH_REDIS_URL="[https://your-region.upstash.io](https://your-region.upstash.io)"
+*  UPSTASH_REDIS_TOKEN="your-token"
+```bash
+npx prisma db push
+npx prisma generate
+npm run seed
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
