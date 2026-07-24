@@ -51,8 +51,9 @@ cd watch-brand-showcase
 ```
 **2. Install dependencies**
 ```bash
-```
 npm install
+```
+
 # PostgreSQL Database URL
 DATABASE_URL="postgresql://user:password@localhost:5432/watch_brand?schema=public"
 
