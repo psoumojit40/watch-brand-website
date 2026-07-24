@@ -46,7 +46,7 @@ Follow these steps to set up the project locally.
 
 **1. Clone the repository**
 ```bash
-git clone [https://github.com/yourusername/watch-brand-showcase.git](https://github.com/yourusername/watch-brand-showcase.git)
+git clone (https://github.com/psoumojit40/watch-brand-website.git)
 cd watch-brand-showcase
 ```
 **2. Install dependencies**
