@@ -16,18 +16,42 @@ const EMPTY_FORM: FormState = { name: "", email: "", message: "" };
 export function ContactSection() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange =
     (field: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
+      if (error) setError(null);
     };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // No backend yet — acknowledge locally and reset the form.
-    setSubmitted(true);
-    setForm(EMPTY_FORM);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send email. Please try again.");
+      }
+
+      setSubmitted(true);
+      setForm(EMPTY_FORM);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Something went wrong.";
+      setError(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -78,6 +102,12 @@ export function ContactSection() {
               onSubmit={handleSubmit}
               className="space-y-6 border border-white/5 bg-black/40 p-8 backdrop-blur-sm md:p-10"
             >
+              {error && (
+                <div className="border border-red-500/30 bg-red-950/40 p-4 text-center text-xs text-red-300">
+                  {error}
+                </div>
+              )}
+
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <label
@@ -93,7 +123,8 @@ export function ContactSection() {
                     value={form.name}
                     onChange={handleChange("name")}
                     placeholder="Your name"
-                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none"
+                    disabled={isSubmitting}
+                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                   />
                 </div>
                 <div>
@@ -110,7 +141,8 @@ export function ContactSection() {
                     value={form.email}
                     onChange={handleChange("email")}
                     placeholder="you@example.com"
-                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none"
+                    disabled={isSubmitting}
+                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -129,13 +161,14 @@ export function ContactSection() {
                   value={form.message}
                   onChange={handleChange("message")}
                   placeholder="How can we help you?"
-                  className="w-full resize-none border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none"
+                  disabled={isSubmitting}
+                  className="w-full resize-none border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                 />
               </div>
 
               <div className="flex justify-center pt-2">
-                <Button type="submit" variant="primary" size="lg">
-                  Send Message
+                <Button type="submit" variant="primary" size="lg" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </div>
             </form>
@@ -145,3 +178,4 @@ export function ContactSection() {
     </section>
   );
 }
+
