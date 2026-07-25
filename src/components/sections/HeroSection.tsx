@@ -80,8 +80,8 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Right — live ticking watch, slanted in perspective */}
-        <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[380px] lg:max-w-[460px]">
+        {/* Right — live ticking watch */}
+        <div className="relative mx-auto flex flex-col items-center justify-center w-full max-w-[280px] sm:max-w-[380px] lg:max-w-[460px]">
           <AnimatedWatch />
           <motion.p
             initial={{ opacity: 0 }}

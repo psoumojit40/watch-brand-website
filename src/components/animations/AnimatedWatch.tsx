@@ -83,72 +83,68 @@ function Watch() {
   const markerRingRadius = 1.1;
 
   return (
-    <group>
-      <group>
-        <Center>
-          {/* Bezel ring */}
-          <mesh position={[0, 0, 0.25]}>
-            <torusGeometry args={[bezelRadius, 0.12, 32, 96]} />
-            <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.15} />
-          </mesh>
+    <group position={[0, 0, 0]}>
+      {/* Bezel ring */}
+      <mesh position={[0, 0, 0.25]}>
+        <torusGeometry args={[bezelRadius, 0.12, 32, 96]} />
+        <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.15} />
+      </mesh>
 
-          {/* Case body */}
-          <mesh position={[0, 0, 0]} rotation={faceCamera}>
-            <cylinderGeometry args={[bezelRadius, bezelRadius, 0.4, 96]} />
-            <meshStandardMaterial color="#c9a96e" metalness={0.85} roughness={0.2} />
-          </mesh>
+      {/* Case body */}
+      <mesh position={[0, 0, 0]} rotation={faceCamera}>
+        <cylinderGeometry args={[bezelRadius, bezelRadius, 0.4, 96]} />
+        <meshStandardMaterial color="#c9a96e" metalness={0.85} roughness={0.2} />
+      </mesh>
 
-          {/* Dial face - Deep Midnight Navy */}
-          <mesh position={[0, 0, 0.21]} rotation={faceCamera}>
-            <cylinderGeometry args={[dialRadius, dialRadius, 0.05, 96]} />
-            <meshStandardMaterial color="#0f172a" metalness={0.4} roughness={0.45} />
-          </mesh>
+      {/* Dial face - Deep Midnight Navy */}
+      <mesh position={[0, 0, 0.21]} rotation={faceCamera}>
+        <cylinderGeometry args={[dialRadius, dialRadius, 0.05, 96]} />
+        <meshStandardMaterial color="#0f172a" metalness={0.4} roughness={0.45} />
+      </mesh>
 
-          {/* Roman numeral hour markers (I–XII) */}
-          {ROMAN_NUMERALS.map((numeral, i) => {
-            const angle = (i / 12) * Math.PI * 2;
-            return (
-              <Text
-                key={`hour-${i}`}
-                position={[
-                  Math.sin(angle) * markerRingRadius,
-                  Math.cos(angle) * markerRingRadius,
-                  0.24,
-                ]}
-                fontSize={0.16}
-                color="#c9a96e"
-                anchorX="center"
-                anchorY="middle"
-              >
-                {numeral}
-              </Text>
-            );
-          })}
+      {/* Roman numeral hour markers (I–XII) */}
+      {ROMAN_NUMERALS.map((numeral, i) => {
+        const angle = (i / 12) * Math.PI * 2;
+        return (
+          <Text
+            key={`hour-${i}`}
+            position={[
+              Math.sin(angle) * markerRingRadius,
+              Math.cos(angle) * markerRingRadius,
+              0.24,
+            ]}
+            fontSize={0.16}
+            color="#c9a96e"
+            anchorX="center"
+            anchorY="middle"
+          >
+            {numeral}
+          </Text>
+        );
+      })}
 
-          {/* Hands */}
-          <group position={[0, 0, 0.3]}>
-            <Hand length={0.75} width={0.06} depth={0.03} color="#f5f0e8" rotationRef={hourRot} />
-          </group>
-          <group position={[0, 0, 0.33]}>
-            <Hand length={1.05} width={0.04} depth={0.03} color="#f5f0e8" rotationRef={minuteRot} />
-          </group>
-          <group position={[0, 0, 0.36]}>
-            <Hand length={1.15} width={0.015} depth={0.02} color="#c9a96e" rotationRef={secondRot} />
-          </group>
-
-          {/* Center hub */}
-          <mesh position={[0, 0, 0.4]} rotation={faceCamera}>
-            <cylinderGeometry args={[0.08, 0.08, 0.06, 32]} />
-            <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.1} />
-          </mesh>
-
-          {/* Crown */}
-          <mesh position={[bezelRadius + 0.05, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.09, 0.09, 0.18, 24]} />
-            <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.1} />
-          </mesh>
-        </Center>
+      {/* Hands */}
+      <group position={[0, 0, 0.3]}>
+        <Hand length={0.75} width={0.06} depth={0.03} color="#f5f0e8" rotationRef={hourRot} />
       </group>
+      <group position={[0, 0, 0.33]}>
+        <Hand length={1.05} width={0.04} depth={0.03} color="#f5f0e8" rotationRef={minuteRot} />
+      </group>
+      <group position={[0, 0, 0.36]}>
+        <Hand length={1.15} width={0.015} depth={0.02} color="#c9a96e" rotationRef={secondRot} />
+      </group>
+
+      {/* Center hub */}
+      <mesh position={[0, 0, 0.4]} rotation={faceCamera}>
+        <cylinderGeometry args={[0.08, 0.08, 0.06, 32]} />
+        <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.1} />
+      </mesh>
+
+      {/* Crown */}
+      <mesh position={[bezelRadius + 0.05, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.09, 0.09, 0.18, 24]} />
+        <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.1} />
+      </mesh>
     </group>
   );
 }
