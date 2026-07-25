@@ -28,14 +28,12 @@ export const ROUTES = {
   contact: "/#contact",
 } as const;
 
-// Homepage in-page sections used for the navbar scroll-spy. `id` is the
-// element id on the section, `href` is the anchor the nav link points to.
 export const HOME_SECTIONS = [
-  { id: "home", href: "/#home", label: "Home" },
-  { id: "collections", href: "/#collections", label: "Collections" },
-  { id: "new-arrivals", href: "/#new-arrivals", label: "New Arrivals" },
-  { id: "timeline", href: "/#timeline", label: "Timeline" },
-  { id: "contact", href: "/#contact", label: "Contact" },
+  { id: "home", href: "/#home", label: "HOME" },
+  { id: "collections", href: "/#collections", label: "COLLECTIONS" },
+  { id: "new-arrivals", href: "/#new-arrivals", label: "NEW ARRIVALS" },
+  { id: "timeline", href: "/#timeline", label: "TIMELINE" },
+  { id: "contact", href: "/#contact", label: "CONTACT" },
 ] as const;
 
 

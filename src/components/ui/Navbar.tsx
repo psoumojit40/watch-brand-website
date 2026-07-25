@@ -6,15 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ROUTES, BRAND, HOME_SECTIONS } from "@/lib/constants";
+import { ROUTES, HOME_SECTIONS } from "@/lib/constants";
 import { useAppStore } from "@/lib/store";
 
 export function Navbar() {
   const pathname = usePathname();
   const { isMobileMenuOpen, setMobileMenuOpen } = useAppStore();
 
-  // Which homepage section is currently centered in the viewport. Only
-  // meaningful on the home page; the scroll-spy observer keeps it in sync.
+  // Scroll spy to highlight the active section on the homepage
   const [activeSection, setActiveSection] = useState<string>(HOME_SECTIONS[0].id);
 
   const onHome = pathname === ROUTES.home;
@@ -27,8 +26,6 @@ export function Navbar() {
     );
     if (sections.length === 0) return;
 
-    // A narrow band across the vertical middle of the viewport decides which
-    // section is "active" — whichever crosses the band is highlighted.
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -38,15 +35,13 @@ export function Navbar() {
           setActiveSection(visible[0].target.id);
         }
       },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
     );
 
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [onHome]);
 
-  // The active anchor href for the gold pill. On the home page it follows the
-  // scrolled-to section; elsewhere nothing is highlighted (these are anchors).
   const activeHref = onHome
     ? HOME_SECTIONS.find((s) => s.id === activeSection)?.href
     : undefined;
@@ -64,102 +59,122 @@ export function Navbar() {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-colors duration-200",
-          !isMobileMenuOpen && "mix-blend-difference"
-        )}
-      >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-lg font-bold tracking-widest text-cream uppercase">
-            {BRAND.name.split(" ")[0]}
-            <span className="text-gold">.</span>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-[#2e2617]/60 transition-colors duration-300">
+        <nav className="relative mx-auto flex max-w-[1600px] items-center justify-between px-4 sm:px-6 py-3 md:py-3.5">
+          
+          {/* Brand Logo - Left Side */}
+          <Link href="/" className="group flex items-center gap-3 shrink-0 z-10">
+            {/* Circular AP Badge */}
+            <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#0d0c0a] shadow-[0_0_15px_rgba(201,169,110,0.15)] transition-all duration-300 group-hover:border-[#e6ce96] group-hover:shadow-[0_0_20px_rgba(201,169,110,0.3)]">
+              <span className="text-xs sm:text-sm font-semibold tracking-wider text-[#e6ce96]">
+                AP
+              </span>
+            </div>
+
+            {/* Audemars Piguet Text Block */}
+            <div className="flex flex-col">
+              <span className="text-[11px] sm:text-[13px] font-extrabold tracking-[0.2em] text-[#e6ce96] uppercase leading-tight transition-colors group-hover:text-white">
+                AUDEMARS PIGUET
+              </span>
+              <span className="text-[8px] sm:text-[9px] font-medium tracking-[0.22em] text-[#a39474]/80 uppercase mt-0.5">
+                LE BRASSUS, SUISSE
+              </span>
+            </div>
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
-            {HOME_SECTIONS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "relative px-3 py-1.5 text-xs font-medium tracking-[0.2em] uppercase transition-colors duration-200",
-                  activeHref === link.href
-                    ? "text-black"
-                    : "text-cream/70 hover:text-cream"
-                )}
-              >
-                {activeHref === link.href && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-sm bg-gold"
-                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </Link>
-            ))}
+          {/* Center Floating Capsule Navigation - Desktop */}
+          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
+            <div className="flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#3d3321]/90 bg-[#0c0b08]/90 backdrop-blur-2xl p-1.5 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+              {HOME_SECTIONS.map((link) => {
+                const isActive = activeHref === link.href || (onHome && link.href === "/#home" && activeSection === "home");
+
+                return (
+                  <Link
+                    key={link.id}
+                    href={link.href}
+                    className={cn(
+                      "relative px-3 xl:px-4 py-1.5 text-[11px] xl:text-[12px] font-extrabold tracking-[0.16em] uppercase transition-colors duration-200 rounded-full select-none",
+                      isActive
+                        ? "text-[#0a0a0a]"
+                        : "text-[#d6c5a3]/80 hover:text-white"
+                    )}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="active-nav-glow"
+                        className="absolute inset-0 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f3d687] to-[#b89228] shadow-[0_0_22px_rgba(229,193,88,0.55)]"
+                        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
-          <button
-            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="relative z-50 p-2 text-cream hover:text-gold transition-colors md:hidden focus:outline-none"
-            aria-label="Toggle navigation menu"
-          >
-            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {/* Mobile Menu Toggle Button */}
+          <div className="flex items-center lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              className="relative z-50 rounded-full border border-[#4a3e28] p-2 text-[#e6ce96] hover:bg-[#c9a96e]/10 transition-colors focus:outline-none"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </nav>
       </header>
 
-      {/* Mobile Navigation Fullscreen Drawer */}
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-black/98 px-6 pt-24 pb-12 backdrop-blur-2xl md:hidden"
-            style={{ isolation: "isolate" }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-black/98 px-6 pt-28 pb-12 backdrop-blur-3xl lg:hidden"
           >
-            {/* Ambient Gold Background Glow */}
-            <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-gold/10 blur-[100px]" />
+            {/* Glow accent */}
+            <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#c9a96e]/15 blur-[120px]" />
 
-            <div className="relative z-10 flex flex-col items-center justify-center space-y-6 my-auto">
-              <span className="text-[10px] tracking-[0.3em] uppercase text-gold/60 font-medium">
-                Navigation
+            <div className="relative z-10 flex flex-col items-center justify-center gap-3 my-auto w-full max-w-sm mx-auto">
+              <span className="mb-2 text-[10px] font-semibold tracking-[0.3em] uppercase text-[#c9a96e]/80">
+                AUDEMARS PIGUET MENU
               </span>
 
-              {HOME_SECTIONS.map((link, idx) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 + 0.1 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="group flex flex-col items-center text-center"
+              {HOME_SECTIONS.map((link, idx) => {
+                const isActive = activeHref === link.href;
+
+                return (
+                  <motion.div
+                    key={link.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.04 + 0.08 }}
+                    className="w-full text-center"
                   >
-                    <span className="text-2xl sm:text-3xl font-light tracking-[0.2em] uppercase text-cream transition-colors group-hover:text-gold">
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "block w-full rounded-full py-3 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300",
+                        isActive
+                          ? "bg-gradient-to-r from-[#d4af37] via-[#f3d687] to-[#b89228] text-black shadow-[0_0_20px_rgba(229,193,88,0.4)]"
+                          : "border border-[#3d3321]/60 bg-[#0c0b08]/80 text-[#d6c5a3] hover:border-[#c9a96e] hover:text-white"
+                      )}
+                    >
                       {link.label}
-                    </span>
-                    <span className="mt-1 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-8" />
-                  </Link>
-                </motion.div>
-              ))}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
-            <div className="relative z-10 flex flex-col items-center gap-4 text-center border-t border-white/10 pt-6">
-              <Link
-                href={ROUTES.collections}
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full max-w-xs rounded-sm border border-gold/40 bg-gold/10 py-3 text-xs font-medium tracking-[0.2em] uppercase text-gold transition-all hover:bg-gold hover:text-black"
-              >
-                Explore Timepieces
-              </Link>
-              <p className="text-[10px] tracking-widest uppercase text-cream/40">
-                {BRAND.tagline}
+            <div className="relative z-10 flex flex-col items-center gap-4 text-center border-t border-[#3d3321]/60 pt-6">
+              <p className="text-[9px] tracking-[0.25em] uppercase text-[#a39474]/70">
+                LE BRASSUS, SUISSE • SINCE 1875
               </p>
             </div>
           </motion.div>
