@@ -35,11 +35,11 @@ export function TimelineSection() {
 
         <div className="relative">
           {/* Vertical background line */}
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gold/20 md:left-1/2 md:-translate-x-px" />
+          <div className="absolute left-4 top-0 bottom-0 w-px -translate-x-1/2 bg-gold/20 md:left-1/2" />
 
           {/* Animated scroll progress line */}
           <motion.div
-            className="absolute left-4 top-0 w-px bg-gradient-to-b from-gold via-[#f3d687] to-gold md:left-1/2 md:-translate-x-px shadow-[0_0_12px_rgba(201,169,110,0.6)]"
+            className="absolute left-4 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-gold via-[#f3d687] to-gold md:left-1/2 shadow-[0_0_12px_rgba(201,169,110,0.6)]"
             style={{
               height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
             }}
