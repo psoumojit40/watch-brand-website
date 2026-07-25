@@ -126,43 +126,46 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile Navigation Drawer - Fast, Lightweight Luxury Typography */}
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
             className="fixed inset-0 z-40 flex flex-col justify-between bg-[#0a0a0a] px-6 pt-28 pb-12 lg:hidden"
           >
-            <div className="relative z-10 flex flex-col items-center justify-center gap-6 my-auto w-full max-w-sm mx-auto">
-              <span className="mb-2 text-[10px] font-semibold tracking-[0.3em] uppercase text-[#c9a96e]/70">
-                NAVIGATION
-              </span>
-
-              {HOME_SECTIONS.map((link) => {
+            <div className="relative z-10 flex flex-col items-center justify-center gap-5 my-auto w-full max-w-sm mx-auto">
+              {HOME_SECTIONS.map((link, idx) => {
                 const isActive = activeHref === link.href;
 
                 return (
-                  <Link
+                  <motion.div
                     key={link.id}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={cn(
-                      "group flex flex-col items-center text-center py-1.5 transition-colors duration-150",
-                      isActive
-                        ? "text-[#f3d687] font-extrabold"
-                        : "text-[#d6c5a3]/80 hover:text-white font-medium"
-                    )}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 + 0.08 }}
+                    className="w-full text-center"
                   >
-                    <span className="text-xl sm:text-2xl tracking-[0.22em] uppercase">
-                      {link.label}
-                    </span>
-                    {isActive && (
-                      <span className="mt-1 h-0.5 w-6 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f3d687]" />
-                    )}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "inline-flex flex-col items-center text-center py-1.5 transition-colors duration-200",
+                        isActive
+                          ? "text-[#f3d687] font-extrabold"
+                          : "text-[#d6c5a3]/80 hover:text-white font-medium"
+                      )}
+                    >
+                      <span className="text-2xl sm:text-3xl tracking-[0.22em] uppercase">
+                        {link.label}
+                      </span>
+                      {isActive && (
+                        <span className="mt-1 h-0.5 w-8 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f3d687]" />
+                      )}
+                    </Link>
+                  </motion.div>
                 );
               })}
             </div>

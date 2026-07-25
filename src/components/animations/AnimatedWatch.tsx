@@ -171,7 +171,7 @@ export function AnimatedWatch({ className }: AnimatedWatchProps) {
       {!isMobileMenuOpen && (
         <Canvas
           camera={{ position: [0, 0.4, 6.8], fov: 42 }}
-          dpr={1}
+          dpr={[1, 2]}
           frameloop="always"
         >
           <ambientLight intensity={0.45} />
