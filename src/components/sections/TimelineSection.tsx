@@ -39,7 +39,7 @@ export function TimelineSection() {
 
           {/* Animated scroll progress line */}
           <motion.div
-            className="absolute left-4 top-0 w-px bg-gold md:left-1/2 md:-translate-x-px"
+            className="absolute left-4 top-0 w-px bg-gradient-to-b from-gold via-[#f3d687] to-gold md:left-1/2 md:-translate-x-px shadow-[0_0_12px_rgba(201,169,110,0.6)]"
             style={{
               height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
             }}
@@ -90,9 +90,9 @@ export function TimelineSection() {
           </div>
         </div>
 
-        <FadeInSection className="mt-16 text-center">
-          <Link href={ROUTES.timeline}>
-            <Button variant="outline" size="md">
+        <FadeInSection className="mt-16 flex justify-start pl-12 sm:justify-center sm:pl-0">
+          <Link href={ROUTES.timeline} className="w-full sm:w-auto">
+            <Button variant="outline" size="md" className="w-full sm:w-auto">
               View Full Timeline
             </Button>
           </Link>
