@@ -126,55 +126,50 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer - Fast, Lightweight Luxury Typography */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="fixed inset-0 z-40 flex flex-col justify-between bg-[#0a0a0a] px-6 pt-28 pb-12 lg:hidden"
           >
-            {/* Glow accent */}
-            <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#c9a96e]/15 blur-[120px]" />
-
-            <div className="relative z-10 flex flex-col items-center justify-center gap-3 my-auto w-full max-w-sm mx-auto">
-              <span className="mb-2 text-[10px] font-semibold tracking-[0.3em] uppercase text-[#c9a96e]/80">
-                AUDEMARS PIGUET MENU
+            <div className="relative z-10 flex flex-col items-center justify-center gap-6 my-auto w-full max-w-sm mx-auto">
+              <span className="mb-2 text-[10px] font-semibold tracking-[0.3em] uppercase text-[#c9a96e]/70">
+                NAVIGATION
               </span>
 
-              {HOME_SECTIONS.map((link, idx) => {
+              {HOME_SECTIONS.map((link) => {
                 const isActive = activeHref === link.href;
 
                 return (
-                  <motion.div
+                  <Link
                     key={link.id}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.04 + 0.08 }}
-                    className="w-full text-center"
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "group flex flex-col items-center text-center py-1.5 transition-colors duration-150",
+                      isActive
+                        ? "text-[#f3d687] font-extrabold"
+                        : "text-[#d6c5a3]/80 hover:text-white font-medium"
+                    )}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={cn(
-                        "block w-full rounded-full py-3 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300",
-                        isActive
-                          ? "bg-gradient-to-r from-[#d4af37] via-[#f3d687] to-[#b89228] text-black shadow-[0_0_20px_rgba(229,193,88,0.4)]"
-                          : "border border-[#3d3321]/60 bg-[#0c0b08]/80 text-[#d6c5a3] hover:border-[#c9a96e] hover:text-white"
-                      )}
-                    >
+                    <span className="text-xl sm:text-2xl tracking-[0.22em] uppercase">
                       {link.label}
-                    </Link>
-                  </motion.div>
+                    </span>
+                    {isActive && (
+                      <span className="mt-1 h-0.5 w-6 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f3d687]" />
+                    )}
+                  </Link>
                 );
               })}
             </div>
 
-            <div className="relative z-10 flex flex-col items-center gap-4 text-center border-t border-[#3d3321]/60 pt-6">
+            <div className="relative z-10 flex flex-col items-center gap-2 text-center border-t border-[#2e2617]/80 pt-6">
               <p className="text-[9px] tracking-[0.25em] uppercase text-[#a39474]/70">
-                LE BRASSUS, SUISSE • SINCE 1875
+                AUDEMARS PIGUET • LE BRASSUS, SUISSE
               </p>
             </div>
           </motion.div>

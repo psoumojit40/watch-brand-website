@@ -157,7 +157,6 @@ export function AnimatedWatch({ className }: AnimatedWatchProps) {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.08, y: -10 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={cn("group relative aspect-square w-full cursor-grab active:cursor-grabbing", className)}
     >
@@ -169,26 +168,29 @@ export function AnimatedWatch({ className }: AnimatedWatchProps) {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <Canvas
-        camera={{ position: [0, 0.4, 6.8], fov: 42 }}
-        dpr={[1, 1.5]}
-        frameloop={isMobileMenuOpen ? "never" : "always"}
-        style={{ visibility: isMobileMenuOpen ? "hidden" : "visible" }}
-      >
-        <ambientLight intensity={0.45} />
-        <spotLight position={[4, 5, 5]} angle={0.4} penumbra={1} intensity={1.0} />
-        <spotLight position={[-4, -3, 4]} angle={0.4} penumbra={1} intensity={0.4} />
-        <pointLight position={[0, 0, 4]} intensity={0.5} />
-        <Watch />
-        <OrbitControls
-          enablePan={false}
-          enableZoom={false}
-          enableDamping
-          dampingFactor={0.08}
-          rotateSpeed={0.9}
-        />
-        <Environment preset="city" />
-      </Canvas>
+      {!isMobileMenuOpen && (
+        <Canvas
+          camera={{ position: [0, 0.4, 6.8], fov: 42 }}
+          dpr={1}
+          frameloop="always"
+        >
+          <ambientLight intensity={0.45} />
+          <spotLight position={[4, 5, 5]} angle={0.4} penumbra={1} intensity={1.0} />
+          <spotLight position={[-4, -3, 4]} angle={0.4} penumbra={1} intensity={0.4} />
+          <pointLight position={[0, 0, 4]} intensity={0.5} />
+          <Watch />
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            minDistance={6.8}
+            maxDistance={6.8}
+            enableDamping
+            dampingFactor={0.08}
+            rotateSpeed={0.9}
+          />
+          <Environment preset="city" />
+        </Canvas>
+      )}
     </motion.div>
   );
 }
