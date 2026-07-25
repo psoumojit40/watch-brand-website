@@ -6,6 +6,7 @@ import { Environment, Center, OrbitControls, Text } from "@react-three/drei";
 import { Group } from "three";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useAppStore } from "@/lib/store";
 
 interface AnimatedWatchProps {
   className?: string;
@@ -150,6 +151,8 @@ function Watch() {
 }
 
 export function AnimatedWatch({ className }: AnimatedWatchProps) {
+  const isMobileMenuOpen = useAppStore((state) => state.isMobileMenuOpen);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -166,7 +169,12 @@ export function AnimatedWatch({ className }: AnimatedWatchProps) {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <Canvas camera={{ position: [0, 0.4, 6.8], fov: 42 }} dpr={[1, 2]}>
+      <Canvas
+        camera={{ position: [0, 0.4, 6.8], fov: 42 }}
+        dpr={[1, 1.5]}
+        frameloop={isMobileMenuOpen ? "never" : "always"}
+        style={{ visibility: isMobileMenuOpen ? "hidden" : "visible" }}
+      >
         <ambientLight intensity={0.45} />
         <spotLight position={[4, 5, 5]} angle={0.4} penumbra={1} intensity={1.0} />
         <spotLight position={[-4, -3, 4]} angle={0.4} penumbra={1} intensity={0.4} />

@@ -134,7 +134,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-black/98 px-6 pt-28 pb-12 backdrop-blur-3xl lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-[#0a0a0a] px-6 pt-28 pb-12 lg:hidden"
           >
             {/* Glow accent */}
             <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#c9a96e]/15 blur-[120px]" />
