@@ -83,14 +83,14 @@ export function HeroSection() {
         {/* Right — live ticking watch */}
         <div className="relative mx-auto flex flex-col items-center justify-center w-full max-w-[280px] sm:max-w-[380px] lg:max-w-[460px]">
           <AnimatedWatch />
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1 }}
             className="mt-8 text-center text-[10px] tracking-[0.3em] uppercase text-cream/30"
           >
             Precision in real time
-          </motion.p>
+          </motion.p> */}
         </div>
       </div>
 
