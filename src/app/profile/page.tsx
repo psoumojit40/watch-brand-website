@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -21,6 +21,33 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
+interface OrderItemType {
+  id: string;
+  product?: { name?: string };
+  quantity: number;
+  price: number;
+}
+
+interface OrderType {
+  id: string;
+  createdAt: string;
+  status: string;
+  totalAmount: number;
+  paymentMethod?: string;
+  shippingAddress?: string;
+  items: OrderItemType[];
+}
+
+interface AppointmentType {
+  id: string;
+  boutique: string;
+  date: string;
+  timeSlot: string;
+  status: string;
+  notes?: string;
+  product?: { name?: string };
+}
+
 function ProfileContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,8 +66,8 @@ function ProfileContent() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
-  const [appointments, setAppointments] = useState<Record<string, unknown>[]>([]);
+  const [orders, setOrders] = useState<OrderType[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentType[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
