@@ -80,11 +80,11 @@ Copy-Item .env.example .env
 Open `.env` in your code editor and configure the environment variables:
 ```env
 # PostgreSQL Database URL
-DATABASE_URL="postgresql://user:password@localhost:5432/watch_brand?sslmode=require"
+DATABASE_URL="Your_databse_URL"
 
 # NextAuth / Session Security Settings
 NEXTAUTH_SECRET="your-nextauth-secret-key-generate-random-string"
-NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="your-localhost-url"
 
 # Google OAuth Keys (From Google Cloud Console)
 GOOGLE_CLIENT_ID=""
