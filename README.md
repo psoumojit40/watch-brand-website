@@ -87,16 +87,16 @@ NEXTAUTH_SECRET="your-nextauth-secret-key-generate-random-string"
 NEXTAUTH_URL="http://localhost:3000"
 
 # Google OAuth Keys (From Google Cloud Console)
-GOOGLE_CLIENT_ID="your-google-client-id.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
 
 # Upstash Redis Caching (Optional)
 UPSTASH_REDIS_URL="https://your-redis-instance.upstash.io"
 UPSTASH_REDIS_TOKEN="your-upstash-redis-token"
 
 # Email / SMTP Settings (Nodemailer for Contact Form & OTPs)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
+SMTP_HOST="smtp url"
+SMTP_PORT="Port Number"
 SMTP_USER="your-email@gmail.com"
 SMTP_PASS="your-app-password"
 CONTACT_EMAIL_TO="your-email@gmail.com"
