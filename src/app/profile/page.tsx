@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   User,
   Mail,
@@ -13,29 +13,22 @@ import {
   Lock,
   Package,
   Calendar,
-  Shield,
   CheckCircle2,
   AlertCircle,
   LogOut,
   Save,
   Clock,
-  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 function ProfileContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialTab = searchParams.get("tab") || "info";
   const { data: session, status, update } = useSession();
 
-  const [activeTab, setActiveTab] = useState(initialTab);
-  const [profile, setProfile] = useState<{
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  }>({
+  const [activeTab, setActiveTab] = useState(() => searchParams.get("tab") || "info");
+
+  const [profile, setProfile] = useState({
     name: "",
     email: "",
     phone: "",
@@ -46,18 +39,12 @@ function ProfileContent() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
-  const [orders, setOrders] = useState<any[]>([]);
-  const [appointments, setAppointments] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Record<string, unknown>[]>([]);
+  const [appointments, setAppointments] = useState<Record<string, unknown>[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-
-  // Sync search param tab
-  useEffect(() => {
-    const tabParam = searchParams.get("tab");
-    if (tabParam) setActiveTab(tabParam);
-  }, [searchParams]);
 
   // Protect page
   useEffect(() => {
@@ -69,7 +56,6 @@ function ProfileContent() {
   // Fetch User Profile, Orders & Appointments
   useEffect(() => {
     if (status === "authenticated") {
-      setLoading(true);
       Promise.all([
         fetch("/api/user/profile").then((res) => res.json()),
         fetch("/api/orders").then((res) => res.json()),

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, ShoppingCart, User as UserIcon, LogOut, Package, Calendar, Settings } from "lucide-react";
+import { Menu, X, ShoppingCart, User as UserIcon, LogOut, Package, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES, HOME_SECTIONS } from "@/lib/constants";
 import { useAppStore } from "@/lib/store";

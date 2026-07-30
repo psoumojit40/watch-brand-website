@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Center, OrbitControls, Text } from "@react-three/drei";
+import { Environment, OrbitControls, Text } from "@react-three/drei";
 import { Group } from "three";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
