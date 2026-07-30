@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { X, ShoppingBag, Trash2, Plus, Minus, ArrowRight } from "lucide-react";
+import { X, ShoppingCart, Trash2, Plus, Minus, ArrowRight } from "lucide-react";
 import { useAppStore } from "@/lib/store";
 import { products as staticProducts } from "@/data/products";
 import { Button } from "@/components/ui/Button";
@@ -49,7 +49,7 @@ export function CartDrawer() {
             <div className="flex items-center justify-between border-b border-[#2e2617]/80 px-6 py-5">
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#c9a96e]/40 bg-[#14120e]">
-                  <ShoppingBag size={18} className="text-[#c9a96e]" />
+                  <ShoppingCart size={18} className="text-[#c9a96e]" />
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold tracking-[0.2em] uppercase text-[#e6ce96]">
@@ -74,7 +74,7 @@ export function CartDrawer() {
               {detailedItems.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center space-y-4 py-12">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#c9a96e]/20 bg-[#12100d]">
-                    <ShoppingBag size={28} className="text-[#c9a96e]/40" />
+                    <ShoppingCart size={28} className="text-[#c9a96e]/40" />
                   </div>
                   <p className="text-xs uppercase tracking-[0.2em] text-[#a39474]">
                     Your collection cart is empty

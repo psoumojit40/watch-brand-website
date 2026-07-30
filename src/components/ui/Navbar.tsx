@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, ShoppingBag, User as UserIcon, LogOut, Package, Calendar, Settings } from "lucide-react";
+import { Menu, X, ShoppingCart, User as UserIcon, LogOut, Package, Calendar, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES, HOME_SECTIONS } from "@/lib/constants";
 import { useAppStore } from "@/lib/store";
@@ -127,7 +127,7 @@ export function Navbar() {
               className="relative flex h-10 w-10 items-center justify-center rounded-full border border-[#4a3e28] bg-[#0d0c0a] text-[#e6ce96] transition-all hover:border-[#c9a96e] hover:bg-[#c9a96e]/10"
               aria-label="Open cart"
             >
-              <ShoppingBag size={18} />
+              <ShoppingCart size={18} />
               {totalCartCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[10px] font-bold text-black shadow-md">
                   {totalCartCount}

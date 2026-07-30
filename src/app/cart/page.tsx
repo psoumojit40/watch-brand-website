@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ShoppingBag,
+  ShoppingCart,
   Trash2,
   Plus,
   Minus,
@@ -147,7 +147,7 @@ export default function CartPage() {
 
         {detailedItems.length === 0 ? (
           <div className="rounded-2xl border border-[#3d3321] bg-[#0d0c0a] p-16 text-center space-y-4 max-w-md mx-auto">
-            <ShoppingBag size={40} className="mx-auto text-[#c9a96e]/40" />
+            <ShoppingCart size={40} className="mx-auto text-[#c9a96e]/40" />
             <h2 className="text-lg font-light text-cream">Your Cart is Empty</h2>
             <p className="text-xs text-cream/50">
               Browse our master watch collections to discover exceptional Swiss timepieces.

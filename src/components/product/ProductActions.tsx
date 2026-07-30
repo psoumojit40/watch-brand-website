@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, Calendar } from "lucide-react";
+import { ShoppingCart, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAppStore } from "@/lib/store";
 
@@ -21,7 +21,7 @@ export function ProductActions({ productId, slug }: ProductActionsProps) {
         onClick={() => addToCart(productId, 1)}
         className="flex items-center gap-2"
       >
-        <ShoppingBag size={18} />
+        <ShoppingCart size={18} />
         <span>Add to Cart</span>
       </Button>
 
