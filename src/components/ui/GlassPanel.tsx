@@ -13,8 +13,8 @@ export function GlassPanel({ children, className, intensity = "medium" }: GlassP
     <div
       className={cn(
         "backdrop-blur-xl border",
-        intensity === "light" && "bg-white/5 border-white/10",
-        intensity === "medium" && "bg-white/[0.07] border-white/[0.12]",
+        intensity === "light" && "bg-white/5 border-gold/10",
+        intensity === "medium" && "bg-white/[0.07] border-gold/15",
         intensity === "heavy" && "bg-black/60 border-gold/20",
         className
       )}

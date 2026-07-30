@@ -100,7 +100,7 @@ export function ContactSection() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="space-y-6 border border-white/5 bg-black/40 p-8 backdrop-blur-sm md:p-10"
+              className="space-y-6 border border-gold/20 bg-black/40 p-8 backdrop-blur-sm md:p-10"
             >
               {error && (
                 <div className="border border-red-500/30 bg-red-950/40 p-4 text-center text-xs text-red-300">
@@ -124,7 +124,7 @@ export function ContactSection() {
                     onChange={handleChange("name")}
                     placeholder="Your name"
                     disabled={isSubmitting}
-                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
+                    className="w-full border border-gold/20 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                   />
                 </div>
                 <div>
@@ -142,7 +142,7 @@ export function ContactSection() {
                     onChange={handleChange("email")}
                     placeholder="you@example.com"
                     disabled={isSubmitting}
-                    className="w-full border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
+                    className="w-full border border-gold/20 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -160,9 +160,9 @@ export function ContactSection() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange("message")}
-                  placeholder="How can we help you?"
+                  placeholder="How may we assist you?"
                   disabled={isSubmitting}
-                  className="w-full resize-none border border-white/10 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
+                  className="w-full resize-none border border-gold/20 bg-transparent px-4 py-3 text-sm text-cream placeholder:text-cream/30 transition-colors focus:border-gold/50 focus:outline-none disabled:opacity-50"
                 />
               </div>
 

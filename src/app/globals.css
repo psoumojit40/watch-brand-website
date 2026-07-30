@@ -19,6 +19,31 @@
   scrollbar-color: #c9a96e #0a0a0a;
 }
 
+*:focus,
+*:focus-visible,
+*:focus-within,
+*:active {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+canvas,
+button,
+a,
+input,
+textarea,
+select,
+div {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+canvas:focus,
+canvas:focus-visible,
+canvas:active {
+  outline: none !important;
+}
+
 body {
   background: #0a0a0a;
   color: #f5f0e8;

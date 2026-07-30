@@ -43,7 +43,7 @@ export function HeritageSection() {
           </FadeInSection>
 
           <FadeInSection direction="right" delay={0.2}>
-            <div className="relative aspect-square overflow-hidden border border-white/5 bg-black/50 backdrop-blur-sm">
+            <div className="relative aspect-square overflow-hidden border border-gold/15 bg-black/50 backdrop-blur-sm">
               <div className="flex h-full items-center justify-center p-8 text-center">
                 <div>
                   <div className="mx-auto mb-6 h-px w-16 bg-gold/60" />

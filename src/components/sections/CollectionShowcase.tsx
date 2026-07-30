@@ -31,7 +31,7 @@ export function CollectionShowcase({ showCta = false }: CollectionShowcaseProps)
             <FadeInSection key={collection.id} direction="up" delay={i * 0.15}>
               <Link
                 href={`${ROUTES.collections}/${collection.slug}`}
-                className="group relative block overflow-hidden rounded-sm border border-white/10 transition-all duration-300 hover:border-gold/50 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)]"
+                className="group relative block overflow-hidden rounded-sm border border-gold/20 transition-all duration-300 hover:border-gold/50 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)]"
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-900">
                   {collection.heroImage && (

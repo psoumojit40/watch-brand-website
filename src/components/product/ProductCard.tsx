@@ -21,7 +21,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       <motion.div
         whileHover={{ y: -6 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="relative overflow-hidden border border-white/10 bg-neutral-950/60 p-6 backdrop-blur-md transition-all duration-300 group-hover:border-gold/40 group-hover:shadow-[0_0_30px_rgba(201,169,110,0.15)]"
+        className="relative overflow-hidden border border-gold/20 bg-neutral-950/60 p-6 backdrop-blur-md transition-all duration-300 group-hover:border-gold/40 group-hover:shadow-[0_0_30px_rgba(201,169,110,0.15)]"
       >
         {/* Subtle Ambient Gold Glow Effect on Hover */}
         <div className="pointer-events-none absolute -top-24 -left-24 h-48 w-48 rounded-full bg-gold/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

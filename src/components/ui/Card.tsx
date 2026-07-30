@@ -16,7 +16,7 @@ export function Card({ children, className, hover = true }: CardProps) {
       whileHover={hover ? { y: -4 } : undefined}
       transition={{ duration: 0.3 }}
       className={cn(
-        "group relative overflow-hidden border border-white/5 bg-black/40 backdrop-blur-sm",
+        "group relative overflow-hidden border border-gold/15 bg-black/40 backdrop-blur-sm",
         className
       )}
     >

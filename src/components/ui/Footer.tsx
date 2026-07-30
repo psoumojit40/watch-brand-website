@@ -65,7 +65,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="border-t border-white/5 pt-8 text-center text-xs text-cream/30">
+        <div className="border-t border-gold/10 pt-8 text-center text-xs text-cream/30">
           &copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved.
         </div>
       </div>
