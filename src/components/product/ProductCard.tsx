@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Watch } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Product } from "@/types/product";
+import { useAppStore } from "@/lib/store";
 
 interface ProductCardProps {
   product: Product;
@@ -93,9 +94,22 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 </span>
               </div>
 
-              <span className="flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-cream/60 transition-colors group-hover:text-gold">
-                Discover <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    useAppStore.getState().addToCart(product.id, 1);
+                  }}
+                  className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold hover:bg-gold hover:text-black transition-all"
+                >
+                  + Cart
+                </button>
+                <span className="flex items-center gap-1 text-xs font-medium tracking-wider uppercase text-cream/60 transition-colors group-hover:text-gold">
+                  Discover <ArrowRight size={13} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -103,3 +117,4 @@ export function ProductCard({ product, className }: ProductCardProps) {
     </Link>
   );
 }
+

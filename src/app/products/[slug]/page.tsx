@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { ProductMediaViewer } from "@/components/product/ProductMediaViewer";
+import { ProductActions } from "@/components/product/ProductActions";
 import { FadeInSection } from "@/components/animations/FadeInSection";
 import { Button } from "@/components/ui/Button";
 import { products } from "@/data/products";
@@ -117,13 +118,7 @@ export default async function ProductPage({ params }: Props) {
                   </p>
                 </div>
 
-                <div className="pt-4 flex flex-wrap items-center gap-4">
-                  <Link href={`/products/${product.slug}/appointment`}>
-                    <Button variant="primary" size="lg">
-                      Book a Private Appointment
-                    </Button>
-                  </Link>
-                </div>
+                <ProductActions productId={product.id} slug={product.slug} />
               </div>
             </div>
           </FadeInSection>
@@ -132,3 +127,4 @@ export default async function ProductPage({ params }: Props) {
     </div>
   );
 }
+

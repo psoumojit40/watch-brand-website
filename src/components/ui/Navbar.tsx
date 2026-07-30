@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
+import { Menu, X, ShoppingBag, User as UserIcon, LogOut, Package, Calendar, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES, HOME_SECTIONS } from "@/lib/constants";
 import { useAppStore } from "@/lib/store";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { isMobileMenuOpen, setMobileMenuOpen } = useAppStore();
+  const { data: session, status } = useSession();
+  const { isMobileMenuOpen, setMobileMenuOpen, setCartOpen, cartItems } = useAppStore();
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+  const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   // Scroll spy to highlight the active section on the homepage
   const [activeSection, setActiveSection] = useState<string>(HOME_SECTIONS[0].id);
@@ -63,7 +69,7 @@ export function Navbar() {
         <nav className="relative mx-auto flex max-w-[1600px] items-center justify-between px-4 sm:px-6 py-3 md:py-3.5">
           
           {/* Brand Logo - Left Side */}
-          <Link href="/" className="group flex items-center gap-3 shrink-0 z-10">
+          <Link href="/" className="group flex items-center gap-3 shrink-0 z-10 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0">
             {/* Circular AP Badge */}
             <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#0d0c0a] shadow-[0_0_15px_rgba(201,169,110,0.15)] transition-all duration-300 group-hover:border-[#e6ce96] group-hover:shadow-[0_0_20px_rgba(201,169,110,0.3)]">
               <span className="text-xs sm:text-sm font-semibold tracking-wider text-[#e6ce96]">
@@ -77,7 +83,7 @@ export function Navbar() {
                 AUDEMARS PIGUET
               </span>
               <span className="text-[8px] sm:text-[9px] font-medium tracking-[0.22em] text-[#a39474]/80 uppercase mt-0.5">
-                LE BRASSUS, SUISSE
+                KOLKATA, INDIA
               </span>
             </div>
           </Link>
@@ -113,18 +119,126 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <div className="flex items-center lg:hidden">
+          {/* Right Action Controls: Cart & Profile */}
+          <div className="flex items-center gap-3 z-10">
+            {/* Cart Button */}
             <button
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative z-50 rounded-full border border-[#4a3e28] p-2 text-[#e6ce96] hover:bg-[#c9a96e]/10 transition-colors focus:outline-none"
-              aria-label="Toggle navigation menu"
+              onClick={() => setCartOpen(true)}
+              className="relative flex h-10 w-10 items-center justify-center rounded-full border border-[#4a3e28] bg-[#0d0c0a] text-[#e6ce96] transition-all hover:border-[#c9a96e] hover:bg-[#c9a96e]/10"
+              aria-label="Open cart"
             >
-              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              <ShoppingBag size={18} />
+              {totalCartCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#d4af37] text-[10px] font-bold text-black shadow-md">
+                  {totalCartCount}
+                </span>
+              )}
             </button>
+
+            {/* Profile Dropdown or Sign In */}
+            {status === "authenticated" && session.user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                  className="flex items-center gap-2 rounded-full border border-[#c9a96e]/60 bg-[#0d0c0a] px-3 py-1.5 text-xs text-[#e6ce96] transition-all hover:border-[#f3d687] hover:shadow-[0_0_15px_rgba(201,169,110,0.2)]"
+                >
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2e2617] text-[10px] font-bold text-[#f3d687]">
+                    {session.user.name?.charAt(0).toUpperCase() || "A"}
+                  </div>
+                  <span className="hidden sm:inline font-medium tracking-wide max-w-[100px] truncate">
+                    {session.user.name || "Collector"}
+                  </span>
+                </button>
+
+                {/* Profile Popup Menu */}
+                <AnimatePresence>
+                  {isProfileMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-2 w-56 rounded-xl border border-[#3d3321] bg-[#0d0c0a] p-2 shadow-2xl backdrop-blur-xl"
+                    >
+                      <div className="border-b border-[#2e2617] px-3 py-2.5">
+                        <p className="text-xs font-semibold text-cream truncate">
+                          {session.user.name || "Collector"}
+                        </p>
+                        <p className="text-[10px] text-cream/50 truncate">
+                          {session.user.email}
+                        </p>
+                      </div>
+
+                      <div className="py-1 space-y-0.5">
+                        <Link
+                          href="/profile"
+                          onClick={() => setIsProfileMenuOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-[#d6c5a3] hover:bg-[#c9a96e]/15 hover:text-white transition-colors"
+                        >
+                          <UserIcon size={14} className="text-[#c9a96e]" />
+                          <span>My Account</span>
+                        </Link>
+
+                        <Link
+                          href="/profile?tab=orders"
+                          onClick={() => setIsProfileMenuOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-[#d6c5a3] hover:bg-[#c9a96e]/15 hover:text-white transition-colors"
+                        >
+                          <Package size={14} className="text-[#c9a96e]" />
+                          <span>Orders & History</span>
+                        </Link>
+
+                        <Link
+                          href="/profile?tab=appointments"
+                          onClick={() => setIsProfileMenuOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-[#d6c5a3] hover:bg-[#c9a96e]/15 hover:text-white transition-colors"
+                        >
+                          <Calendar size={14} className="text-[#c9a96e]" />
+                          <span>Boutique Appointments</span>
+                        </Link>
+                      </div>
+
+                      <div className="border-t border-[#2e2617] pt-1 mt-1">
+                        <button
+                          onClick={() => {
+                            setIsProfileMenuOpen(false);
+                            signOut({ callbackUrl: "/" });
+                          }}
+                          className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs text-red-400 hover:bg-red-500/10 transition-colors"
+                        >
+                          <LogOut size={14} />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link href="/auth/login">
+                <button className="flex items-center gap-2 rounded-full border border-[#c9a96e]/60 bg-[#0d0c0a] px-3.5 py-1.5 text-xs font-semibold tracking-wider uppercase text-[#e6ce96] transition-all hover:border-[#f3d687] hover:bg-[#c9a96e]/10">
+                  <UserIcon size={14} />
+                  <span>Sign In</span>
+                </button>
+              </Link>
+            )}
+
+            {/* Mobile Menu Toggle Button */}
+            <div className="flex items-center lg:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                className="relative z-50 rounded-full border border-[#4a3e28] p-2 text-[#e6ce96] hover:bg-[#c9a96e]/10 transition-colors focus:outline-none"
+                aria-label="Toggle navigation menu"
+              >
+                {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
           </div>
         </nav>
       </header>
+
+      {/* Cart Slide-over Drawer */}
+      <CartDrawer />
 
       {/* Mobile Navigation Drawer */}
       <AnimatePresence>
@@ -172,7 +286,7 @@ export function Navbar() {
 
             <div className="relative z-10 flex flex-col items-center gap-2 text-center border-t border-[#2e2617]/80 pt-6">
               <p className="text-[9px] tracking-[0.25em] uppercase text-[#a39474]/70">
-                AUDEMARS PIGUET • LE BRASSUS, SUISSE
+                AUDEMARS PIGUET • KOLKATA, INDIA
               </p>
             </div>
           </motion.div>
