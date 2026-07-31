@@ -127,4 +127,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to explore t
 
 ## 🌐 Live Demo
 
-✨ Experience the live deployment: [https://watchwebsite-jade.vercel.app/](https://watchwebsite-jade.vercel.app/)
+✨ Experience the live deployment: [[https://watch-brand-website.vercel.app/](https://watch-brand-website.vercel.app/)]
