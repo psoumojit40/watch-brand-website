@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, OrbitControls, Text } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Group } from "three";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -97,30 +97,46 @@ function Watch() {
         <meshStandardMaterial color="#c9a96e" metalness={0.85} roughness={0.2} />
       </mesh>
 
-      {/* Dial face - Deep Midnight Navy */}
+      {/* Dial face - Deep Midnight Slate Navy */}
       <mesh position={[0, 0, 0.21]} rotation={faceCamera}>
         <cylinderGeometry args={[dialRadius, dialRadius, 0.05, 96]} />
-        <meshStandardMaterial color="#0f172a" metalness={0.4} roughness={0.45} />
+        <meshStandardMaterial color="#111c33" metalness={0.35} roughness={0.38} />
       </mesh>
 
-      {/* Roman numeral hour markers (I–XII) */}
-      {ROMAN_NUMERALS.map((numeral, i) => {
+      {/* 3D Metallic Gold Hour Indices (12 positions, double bar at 12 o'clock) */}
+      {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i / 12) * Math.PI * 2;
+        const is12 = i === 0;
+        const isMajor = i % 3 === 0;
+
         return (
-          <Text
-            key={`hour-${i}`}
+          <group
+            key={`marker-${i}`}
             position={[
               Math.sin(angle) * markerRingRadius,
               Math.cos(angle) * markerRingRadius,
               0.24,
             ]}
-            fontSize={0.16}
-            color="#c9a96e"
-            anchorX="center"
-            anchorY="middle"
+            rotation={[0, 0, -angle]}
           >
-            {numeral}
-          </Text>
+            {is12 ? (
+              <>
+                <mesh position={[-0.03, 0, 0]}>
+                  <boxGeometry args={[0.025, 0.18, 0.03]} />
+                  <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.15} />
+                </mesh>
+                <mesh position={[0.03, 0, 0]}>
+                  <boxGeometry args={[0.025, 0.18, 0.03]} />
+                  <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.15} />
+                </mesh>
+              </>
+            ) : (
+              <mesh>
+                <boxGeometry args={[isMajor ? 0.045 : 0.025, isMajor ? 0.18 : 0.11, 0.03]} />
+                <meshStandardMaterial color="#c9a96e" metalness={0.9} roughness={0.15} />
+              </mesh>
+            )}
+          </group>
         );
       })}
 
@@ -174,10 +190,11 @@ export function AnimatedWatch({ className }: AnimatedWatchProps) {
           dpr={[1, 2]}
           frameloop="always"
         >
-          <ambientLight intensity={0.45} />
+          <ambientLight intensity={0.65} />
+          <directionalLight position={[0.5, 1, 5]} intensity={0.5} color="#fffdfa" />
           <spotLight position={[4, 5, 5]} angle={0.4} penumbra={1} intensity={1.0} />
           <spotLight position={[-4, -3, 4]} angle={0.4} penumbra={1} intensity={0.4} />
-          <pointLight position={[0, 0, 4]} intensity={0.5} />
+          <pointLight position={[0, 0.5, 4.5]} intensity={0.75} />
           <Watch />
           <OrbitControls
             enablePan={false}
