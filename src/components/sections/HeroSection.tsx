@@ -84,7 +84,7 @@ export function HeroSection() {
         <div className="relative mx-auto flex flex-col items-center justify-center w-full max-w-[280px] sm:max-w-[380px] lg:max-w-[460px]">
           <AnimatedWatch />
         </div>
-      </div>
+l̥      </div>
 
       <motion.div
         initial={{ opacity: 0 }}
